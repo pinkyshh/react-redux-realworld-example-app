@@ -18,7 +18,7 @@ pipeline {
             steps {
                 sh 'npm start &'
                 sh 'sleep 1'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                input message: 'If you are done using the website, click Proceed to stop.'
                 sh 'fuser -k 4100/tcp || true'
             }
         }
