@@ -1,12 +1,11 @@
 pipeline {
     agent {
         docker {
-            image 'mrts/docker-python-nodejs-google-chrome'
+            image 'node:lts-buster-slim'
             args '-p 3000:3000'
         }
     }
     environment {
-        HOME="."
         CI = 'true'
     }
     stages {
@@ -15,7 +14,11 @@ pipeline {
                 sh 'npm install'
             }
         }
-        
+        stage('Test') {
+            steps {
+                sh './jenkins/scripts/test.sh'
+            }
+        }
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
