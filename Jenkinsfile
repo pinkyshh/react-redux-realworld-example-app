@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
              image 'mrts/docker-python-nodejs-google-chrome'
-            args '-p 4100:4100'
+             args '-p 4100:4100'
         }
     }
     environment {
@@ -11,12 +11,14 @@ pipeline {
     stages {
         stage("BUILD") {
             steps {
+                
                 sh 'npm install'
             }
         }
         stage("DEPLOY") {
             steps {
-                sh 'npm start'
+                sh "chmod +x -R ${env.WORKSPACE}"
+                sh 'npm start &'
             }
         }
     }
