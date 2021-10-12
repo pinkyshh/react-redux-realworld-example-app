@@ -1,26 +1,22 @@
 pipeline {
     agent {
         docker {
-            image 'mrts/docker-python-nodejs-google-chrome'
+            image 'node:lts-buster-slim'
             args '-p 4100:4100'
         }
     }
-
-    environment {
-        CI = true
+    environment { 
+        CI = 'true'
     }
-
     stages {
-        stage('Build') {
+        stage('BUILD') {
             steps {
                 sh 'npm install'
             }
         }
-
-        stage('Deploy') {
+        stage('DEPLOY') { 
             steps {
-                sh 'npm start &'
-              
+                sh 'npm start'
             }
         }
     }
